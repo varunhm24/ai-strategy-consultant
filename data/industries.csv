@@ -1,0 +1,11 @@
+industry,common_problems,common_ai_opportunities
+E-commerce,Customer Support;Inventory;Marketing;Fraud;Demand Forecasting,Customer Support AI;Demand Forecasting;Recommendation System;Marketing Automation;Fraud Detection;Customer Churn Prediction;Inventory Optimization
+Healthcare,Patient Support;Document Processing;Diagnosis Support;Administration,Patient Support;Document Processing;Predictive Analytics
+Finance,Fraud;Customer Support;Risk;Document Processing,Fraud Detection;Customer Support AI;Risk Prediction;Document Processing
+Education,Student Support;Administration;Personalization,Student Support;Learning Personalization;Document Processing
+Manufacturing,Production;Maintenance;Quality;Demand Forecasting,Predictive Maintenance;Demand Forecasting;Quality Inspection
+Retail,Sales;Inventory;Customer Support;Marketing,Demand Forecasting;Recommendation System;Inventory Optimization;Marketing Automation
+IT / Software,Customer Support;Development;Operations;Security,AI Coding Assistant;Customer Support AI;AIOps;Security Analytics
+Logistics,Delivery;Route Optimization;Demand Forecasting,Route Optimization;Demand Forecasting;Predictive Maintenance
+Agriculture,Crop Monitoring;Disease Detection;Yield Prediction,Crop Disease Detection;Yield Prediction;Satellite Analysis
+Real Estate,Property Search;Customer Support;Price Prediction,Property Recommendation;Price Prediction;Customer Support AI

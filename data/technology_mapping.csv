@@ -1,0 +1,12 @@
+technology,use_case,required_data,typical_complexity
+LLM + RAG,Customer Support AI,Support Tickets;Customer Data,Medium
+LLM + RAG,Document Processing,Documents,Low
+Machine Learning,Demand Forecasting,Sales Data;Product Data,Medium
+Machine Learning,Recommendation System,Customer Data;Product Data;Sales Data,High
+Machine Learning,Fraud Detection,Transaction Data;Customer Data,High
+Machine Learning,Customer Churn Prediction,Customer Data;Sales Data,Medium
+Machine Learning,Inventory Optimization,Inventory Data;Sales Data;Product Data,Medium
+Machine Learning,Predictive Maintenance,Sensors;Machine Data;Maintenance Data,High
+Generative AI,Marketing Automation,Marketing Data;Customer Data,Low
+Data Analytics,Sales Analytics,Sales Data;Customer Data,Low
+LLM + OCR,Document Processing,Documents,Low

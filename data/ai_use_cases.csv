@@ -1,0 +1,17 @@
+use_case,industry,technology,required_data,business_impact,implementation_difficulty,cost_level,description
+Customer Support AI,E-commerce,LLM + RAG,Support Tickets;Customer Data,High,Medium,Medium,Automate customer questions and support responses
+Demand Forecasting,E-commerce,Machine Learning,Sales Data;Product Data,High,Medium,Medium,Predict future product demand
+Recommendation System,E-commerce,Machine Learning,Customer Data;Product Data;Sales Data,High,High,High,Recommend relevant products to customers
+Marketing Automation,E-commerce,Generative AI,Marketing Data;Customer Data,Medium,Low,Low,Generate and personalize marketing content
+Fraud Detection,E-commerce,Machine Learning,Transaction Data;Customer Data,High,High,High,Detect potentially fraudulent transactions
+Customer Churn Prediction,E-commerce,Machine Learning,Customer Data;Sales Data,High,Medium,Medium,Identify customers likely to stop purchasing
+Inventory Optimization,E-commerce,Machine Learning,Inventory Data;Sales Data;Product Data,High,Medium,Medium,Optimize inventory levels and reduce stockouts
+Document Processing,E-commerce,LLM + OCR,Documents,Medium,Low,Low,Extract and summarize information from business documents
+Sales Analytics,E-commerce,Data Analytics,Sales Data;Customer Data,High,Low,Low,Analyze sales performance and identify trends
+Customer Support AI,Finance,LLM + RAG,Support Tickets;Customer Data,High,High,High,Automate financial customer support
+Fraud Detection,Finance,Machine Learning,Transaction Data,High,High,High,Identify suspicious financial transactions
+Demand Forecasting,Manufacturing,Machine Learning,Sales Data;Production Data,High,Medium,Medium,Forecast future production requirements
+Predictive Maintenance,Manufacturing,Machine Learning,Sensors;Machine Data;Maintenance Data,High,High,High,Predict equipment failures before they occur
+Document Processing,Healthcare,LLM + OCR,Documents,Medium,Medium,Medium,Extract information from medical and administrative documents
+Patient Support,Healthcare,LLM + RAG,Patient Data;Documents,High,High,High,Assist with patient information and support
+Student Support,Education,LLM + RAG,Student Data;Documents,Medium,Low,Low,Provide automated student assistance
