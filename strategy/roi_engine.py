@@ -2,9 +2,11 @@
 # AI COST & ROI ENGINE
 # ============================================================
 
+import pandas as pd
+
 
 # ------------------------------------------------------------
-# COST AND BENEFIT ASSUMPTIONS
+# DEFAULT COST ASSUMPTIONS
 # ------------------------------------------------------------
 
 ROI_PROFILES = {
@@ -52,7 +54,7 @@ ROI_PROFILES = {
 
 
 # ------------------------------------------------------------
-# DEFAULT ASSUMPTION
+# DEFAULT PROFILE
 # ------------------------------------------------------------
 
 DEFAULT_PROFILE = {
@@ -71,7 +73,6 @@ def calculate_roi(
 ):
 
     if implementation_cost <= 0:
-
         return 0
 
     roi = (
@@ -92,14 +93,12 @@ def calculate_payback(
 ):
 
     if annual_benefit <= 0:
-
         return None
 
     monthly_benefit = annual_benefit / 12
 
     payback_months = (
-        implementation_cost
-        / monthly_benefit
+        implementation_cost / monthly_benefit
     )
 
     return round(payback_months, 1)
@@ -109,7 +108,9 @@ def calculate_payback(
 # CREATE ROI ANALYSIS
 # ------------------------------------------------------------
 
-def create_roi_analysis(scored_opportunities):
+def create_roi_analysis(
+    scored_opportunities
+):
 
     roi_analysis = []
 
@@ -131,6 +132,7 @@ def create_roi_analysis(scored_opportunities):
             row.get("score", 0)
         )
 
+        # Get predefined profile
         profile = ROI_PROFILES.get(
             use_case,
             DEFAULT_PROFILE
@@ -144,11 +146,13 @@ def create_roi_analysis(scored_opportunities):
             "annual_benefit"
         ]
 
+        # Calculate ROI
         roi = calculate_roi(
             implementation_cost,
             annual_benefit
         )
 
+        # Calculate payback
         payback = calculate_payback(
             implementation_cost,
             annual_benefit
@@ -177,4 +181,6 @@ def create_roi_analysis(scored_opportunities):
                 payback
         })
 
-    return roi_analysis
+    return pd.DataFrame(
+        roi_analysis
+    )

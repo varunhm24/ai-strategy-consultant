@@ -12,11 +12,13 @@ sys.path.insert(
 )
 
 import streamlit as st
+import pandas as pd
 
 from strategy.opportunity_engine import find_opportunities
 from strategy.scoring_engine import score_opportunities
 from strategy.roadmap_engine import create_roadmap
 from strategy.implementation_engine import create_implementation_plan
+from strategy.roi_engine import create_roi_analysis
 
 
 # ============================================================
@@ -541,8 +543,14 @@ if analyze_button:
         implementation_plan = create_implementation_plan(
             scored_opportunities
         )
-
-    st.session_state["implementation_plan"] = implementation_plan
+        st.session_state["implementation_plan"] = implementation_plan
+        with st.spinner(
+            "Calculating AI investment and ROI..."
+            ):
+            roi_analysis = create_roi_analysis(
+                scored_opportunities
+                )
+            st.session_state["roi_analysis"] = roi_analysis
 
 # ============================================================
 # DISPLAY SAVED AI ROADMAP
@@ -744,5 +752,82 @@ if "implementation_plan" in st.session_state:
             st.write(
                 f"{number}. {step}"
             )
+
+        st.divider()
+# ============================================================
+# AI COST & ROI ANALYSIS
+# ============================================================
+
+if "roi_analysis" in st.session_state:
+
+    roi_analysis = st.session_state[
+        "roi_analysis"
+    ]
+
+    st.divider()
+
+    st.header(
+        "💰 AI Cost & ROI Analysis"
+    )
+
+    st.write(
+        "Estimated investment, annual benefit, "
+        "ROI and payback period for each AI opportunity."
+    )
+
+    for _, item in roi_analysis.iterrows():
+
+        st.subheader(
+            f"💡 {item['use_case']}"
+        )
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+
+            st.metric(
+                "Implementation Cost",
+                f"₹{item['implementation_cost']:,}"
+            )
+
+        with col2:
+
+            st.metric(
+                "Annual Benefit",
+                f"₹{item['annual_benefit']:,}"
+            )
+
+        with col3:
+
+            st.metric(
+                "Estimated ROI",
+                f"{item['roi_percent']}%"
+            )
+
+        with col4:
+
+            payback = item["payback_months"]
+
+            if pd.notna(payback):
+
+                st.metric(
+                    "Payback Period",
+                    f"{payback} months"
+                )
+
+            else:
+
+                st.metric(
+                    "Payback Period",
+                    "N/A"
+                )
+
+        st.write(
+            f"**Technology:** {item['technology']}"
+        )
+
+        st.write(
+            f"**Priority:** {item['priority']}"
+        )
 
         st.divider()
