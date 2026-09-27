@@ -113,6 +113,43 @@ Try the deployed AI Strategy Consultant:
 
 👉 [Open AI Strategy Consultant](https://ai-strategy-consultant-m4zwcxrqudzgqzbtvmzgjv.streamlit.app/)
 
+## System Architecture
+
+The AI Strategy Consultant follows an end-to-end pipeline from business
+information to AI recommendations, implementation planning, ROI analysis,
+and report generation.
+
+
+flowchart TD
+    A[Business Profile] --> B[Opportunity Engine]
+
+    B --> C[AI Use Case Dataset]
+
+    B --> D[Opportunity Matching]
+
+    D --> E[Scoring Engine]
+
+    E --> F[AI Opportunity Matrix]
+
+    F --> G[Roadmap Engine]
+
+    G --> H[4-Phase AI Roadmap]
+
+    F --> I[Implementation Engine]
+
+    I --> J[Implementation Plan]
+
+    F --> K[ROI Engine]
+
+    K --> L[ROI Analysis]
+
+    H --> M[Report Generation]
+    J --> M
+    L --> M
+
+    M --> N[PDF Report]
+    M --> O[Excel Report]
+
 
 ##  Screenshots
 
