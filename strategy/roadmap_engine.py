@@ -25,12 +25,26 @@ def create_roadmap(scored_opportunities):
             row.get("score", 0)
         )
 
+        # ==============================================
+        # PHASE 4 — AI AGENTS
+        # ==============================================
+
+        if (
+            "agent" in use_case.lower()
+            or "agent" in technology.lower()
+        ):
+
+            roadmap[
+                "Phase 4 - AI Agents"
+            ].append(
+                f"{use_case} — {technology}"
+            )
 
         # ==============================================
         # PHASE 1 — QUICK AI WINS
         # ==============================================
 
-        if (
+        elif (
             difficulty == "Low"
             and score >= 4
         ):
@@ -40,7 +54,6 @@ def create_roadmap(scored_opportunities):
             ].append(
                 f"{use_case} — {technology}"
             )
-
 
         # ==============================================
         # PHASE 2 — AI AUTOMATION
@@ -62,7 +75,6 @@ def create_roadmap(scored_opportunities):
                 f"{use_case} — {technology}"
             )
 
-
         # ==============================================
         # PHASE 3 — ADVANCED ML
         # ==============================================
@@ -77,22 +89,5 @@ def create_roadmap(scored_opportunities):
             ].append(
                 f"{use_case} — {technology}"
             )
-
-
-        # ==============================================
-        # PHASE 4 — AI AGENTS
-        # ==============================================
-
-        elif (
-            "agent" in use_case.lower()
-            or "agent" in technology.lower()
-        ):
-
-            roadmap[
-                "Phase 4 - AI Agents"
-            ].append(
-                f"{use_case} — {technology}"
-            )
-
 
     return roadmap

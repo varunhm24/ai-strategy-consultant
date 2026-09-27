@@ -136,6 +136,90 @@ IMPLEMENTATION_PLANS = {
             "Continuously retrain the model"
         ],
         "impact": "Earlier detection of potentially fraudulent transactions"
+    },
+
+
+    # ========================================================
+    # AI AGENT IMPLEMENTATION PLANS
+    # ========================================================
+
+    "AI Customer Service Agent": {
+        "timeline": "8–12+ weeks",
+        "estimated_cost": "Medium",
+        "team": "AI Engineer + Backend Developer + Support Team",
+        "steps": [
+            "Collect customer support data and FAQs",
+            "Organize customer and support knowledge sources",
+            "Build the agent knowledge base",
+            "Connect the LLM to the agent",
+            "Define customer service workflows",
+            "Connect order and customer information systems",
+            "Implement escalation to human support",
+            "Test agent responses and workflows",
+            "Deploy the customer service agent",
+            "Monitor conversations and agent performance"
+        ],
+        "impact": "Automated customer assistance and reduced support workload"
+    },
+
+
+    "AI Sales Agent": {
+        "timeline": "8–12+ weeks",
+        "estimated_cost": "High",
+        "team": "AI Engineer + Backend Developer + Sales Team",
+        "steps": [
+            "Collect customer, product and sales data",
+            "Build product and customer knowledge base",
+            "Connect the LLM to the sales agent",
+            "Define lead qualification workflows",
+            "Implement product recommendation capabilities",
+            "Connect CRM and sales systems",
+            "Enable customer interaction workflows",
+            "Add human approval for important sales actions",
+            "Test sales conversations",
+            "Deploy and monitor the sales agent"
+        ],
+        "impact": "Automated sales assistance and improved customer engagement"
+    },
+
+
+    "AI Marketing Agent": {
+        "timeline": "8–12+ weeks",
+        "estimated_cost": "Medium",
+        "team": "AI Engineer + Marketing Specialist + Backend Developer",
+        "steps": [
+            "Collect customer and marketing data",
+            "Organize marketing knowledge and brand guidelines",
+            "Connect the LLM to the marketing agent",
+            "Define campaign planning workflows",
+            "Build content generation capabilities",
+            "Connect marketing platforms",
+            "Implement campaign monitoring workflows",
+            "Add human approval before publishing",
+            "Test generated campaigns and content",
+            "Deploy and monitor the marketing agent"
+        ],
+        "impact": "Faster campaign creation and reduced marketing workload"
+    },
+
+
+    "AI Inventory Agent": {
+        "timeline": "8–12+ weeks",
+        "estimated_cost": "High",
+        "team": "AI Engineer + Data Engineer + Operations Team",
+        "steps": [
+            "Collect inventory, product and sales data",
+            "Build inventory knowledge base",
+            "Connect the LLM to the inventory agent",
+            "Define stock monitoring workflows",
+            "Detect low-stock and overstock situations",
+            "Connect inventory and procurement systems",
+            "Generate replenishment recommendations",
+            "Add human approval for inventory actions",
+            "Test inventory workflows",
+            "Deploy and monitor the inventory agent"
+        ],
+        "impact": "Automated inventory monitoring and improved stock management"
     }
 }
 

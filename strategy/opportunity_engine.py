@@ -43,7 +43,8 @@ GOAL_KEYWORDS = {
         "customer support",
         "recommendation",
         "customer",
-        "chatbot"
+        "chatbot",
+        "agent"
     ],
 
     "Automate Operations": [
@@ -51,7 +52,8 @@ GOAL_KEYWORDS = {
         "document",
         "inventory",
         "operations",
-        "support"
+        "support",
+        "agent"
     ],
 
     "Improve Decision Making": [
@@ -110,6 +112,15 @@ def find_opportunities(business_profile):
         data_match = False
 
         goal_match = False
+        
+         # -------------------------------------------------
+        # CHECK AI AGENT OPPORTUNITY
+        # -------------------------------------------------
+
+        agent_match = (
+            "agent" in use_case.lower()
+            or "agent" in str(row["technology"]).lower()
+        )
 
         # -------------------------------------------------
         # CHECK BUSINESS PROBLEM
@@ -172,6 +183,7 @@ def find_opportunities(business_profile):
             problem_match
             or data_match
             or goal_match
+            or agent_match
         ):
 
             opportunities.append({

@@ -19,6 +19,8 @@ from strategy.scoring_engine import score_opportunities
 from strategy.roadmap_engine import create_roadmap
 from strategy.implementation_engine import create_implementation_plan
 from strategy.roi_engine import create_roi_analysis
+from reports.report_generator import create_excel_report
+from reports.pdf_report_generator import create_pdf_report
 
 
 # ============================================================
@@ -125,6 +127,13 @@ with col2:
         min_value=0,
         value=1000,
         step=100
+    )
+
+    monthly_revenue = st.number_input(
+    "Monthly Revenue (₹)",
+    min_value=0,
+    value=100000,
+    step=10000
     )
 
 
@@ -333,6 +342,8 @@ if analyze_button:
         "monthly_customers": monthly_customers,
 
         "monthly_transactions": monthly_transactions,
+
+        "monthly_revenue": monthly_revenue,
 
         "business_problems": business_problems,
 
@@ -548,8 +559,9 @@ if analyze_button:
             "Calculating AI investment and ROI..."
             ):
             roi_analysis = create_roi_analysis(
-                scored_opportunities
-                )
+                scored_opportunities,
+                business_profile
+            )
             st.session_state["roi_analysis"] = roi_analysis
 
 # ============================================================
@@ -754,21 +766,18 @@ if "implementation_plan" in st.session_state:
             )
 
         st.divider()
+
 # ============================================================
 # AI COST & ROI ANALYSIS
 # ============================================================
 
 if "roi_analysis" in st.session_state:
 
-    roi_analysis = st.session_state[
-        "roi_analysis"
-    ]
+    roi_analysis = st.session_state["roi_analysis"]
 
     st.divider()
 
-    st.header(
-        "💰 AI Cost & ROI Analysis"
-    )
+    st.header("💰 AI Cost & ROI Analysis")
 
     st.write(
         "Estimated investment, annual benefit, "
@@ -781,20 +790,24 @@ if "roi_analysis" in st.session_state:
             f"💡 {item['use_case']}"
         )
 
+        # ----------------------------------------------------
+        # FINANCIAL METRICS
+        # ----------------------------------------------------
+
         col1, col2, col3, col4 = st.columns(4)
 
         with col1:
 
             st.metric(
                 "Implementation Cost",
-                f"₹{item['implementation_cost']:,}"
+                f"₹{item['implementation_cost']:,.0f}"
             )
 
         with col2:
 
             st.metric(
                 "Annual Benefit",
-                f"₹{item['annual_benefit']:,}"
+                f"₹{item['annual_benefit']:,.0f}"
             )
 
         with col3:
@@ -822,12 +835,363 @@ if "roi_analysis" in st.session_state:
                     "N/A"
                 )
 
+        # ----------------------------------------------------
+        # TECHNOLOGY
+        # ----------------------------------------------------
+
         st.write(
             f"**Technology:** {item['technology']}"
         )
+
+        # ----------------------------------------------------
+        # PRIORITY
+        # ----------------------------------------------------
 
         st.write(
             f"**Priority:** {item['priority']}"
         )
 
+        # ----------------------------------------------------
+        # BUDGET FIT
+        # ----------------------------------------------------
+
+        budget_status = item.get(
+            "budget_status",
+            "Budget not decided"
+        )
+
+        if budget_status == "Within Budget":
+
+            st.success(
+                "💰 Budget Fit: Within Budget"
+            )
+
+        elif budget_status == "Above Budget":
+
+            st.warning(
+                "💰 Budget Fit: Above Budget"
+            )
+
+        else:
+
+            st.info(
+                "💰 Budget Fit: Budget not decided"
+            )
+
         st.divider()
+
+
+    # ========================================================
+    # BUDGET ANALYSIS
+    # ========================================================
+
+    st.subheader("💰 Budget Analysis")
+
+    if "budget_gap" in roi_analysis.columns:
+
+        total_budget_gap = roi_analysis[
+            "budget_gap"
+        ].sum()
+
+        above_budget_count = (
+            roi_analysis["budget_status"]
+            == "Above Budget"
+        ).sum()
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+
+            st.metric(
+                "Total Budget Gap",
+                f"₹{total_budget_gap:,.0f}"
+            )
+
+        with col2:
+
+            st.metric(
+                "Opportunities Above Budget",
+                above_budget_count
+            )
+
+        # ====================================================
+        # BUDGET GAP BY OPPORTUNITY
+        # ====================================================
+
+        st.subheader(
+            "📊 Budget Gap by AI Opportunity"
+        )
+
+        budget_display = roi_analysis[
+            [
+                "use_case",
+                "implementation_cost",
+                "budget_status",
+                "budget_gap"
+            ]
+        ].copy()
+
+        budget_display.columns = [
+            "AI Opportunity",
+            "Implementation Cost",
+            "Budget Status",
+            "Budget Gap"
+        ]
+
+        budget_display[
+            "Implementation Cost"
+        ] = (
+            budget_display[
+                "Implementation Cost"
+            ].apply(
+                lambda x: f"₹{x:,.0f}"
+            )
+        )
+
+        budget_display[
+            "Budget Gap"
+        ] = (
+            budget_display[
+                "Budget Gap"
+            ].apply(
+                lambda x: f"₹{x:,.0f}"
+            )
+        )
+
+        st.dataframe(
+            budget_display,
+            use_container_width=True
+        )
+    
+    # ============================================================
+    # AI STRATEGY DASHBOARD
+    # ============================================================
+
+    if "scored_opportunities" in st.session_state:
+
+        scored_opportunities = st.session_state[
+            "scored_opportunities"
+        ]
+
+        st.divider()
+
+        st.header("📊 AI Strategy Dashboard")
+
+        st.write(
+            "High-level summary of the AI opportunities "
+            "identified for your business."
+        )
+
+        # --------------------------------------------------------
+        # SUMMARY METRICS
+        # --------------------------------------------------------
+
+        total_opportunities = len(scored_opportunities)
+
+        high_priority = len(
+            scored_opportunities[
+                scored_opportunities["priority"].isin(
+                    ["Very High", "High"]
+                )
+            ]
+        )
+
+        medium_priority = len(
+            scored_opportunities[
+                scored_opportunities["priority"] == "Medium"
+            ]
+        )
+
+        low_priority = len(
+            scored_opportunities[
+                scored_opportunities["priority"] == "Low"
+            ]
+        )
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+
+            st.metric(
+                "AI Opportunities",
+                total_opportunities
+            )
+
+        with col2:
+
+            st.metric(
+                "High Priority",
+                high_priority
+            )
+
+        with col3:
+
+            st.metric(
+                "Medium Priority",
+                medium_priority
+            )
+
+        with col4:
+
+            st.metric(
+                "Low Priority",
+                low_priority
+            )
+
+        # --------------------------------------------------------
+        # OPPORTUNITY BY TECHNOLOGY
+        # --------------------------------------------------------
+
+        st.subheader("🧠 AI Technology Distribution")
+
+        technology_counts = (
+            scored_opportunities["technology"]
+            .value_counts()
+            .reset_index()
+        )
+
+        technology_counts.columns = [
+            "Technology",
+            "Opportunities"
+        ]
+
+        st.bar_chart(
+            technology_counts.set_index("Technology")
+        )
+
+        # --------------------------------------------------------
+        # PRIORITY DISTRIBUTION
+        # --------------------------------------------------------
+
+        st.subheader("🎯 Priority Distribution")
+
+        priority_counts = (
+            scored_opportunities["priority"]
+            .value_counts()
+            .reset_index()
+        )
+
+        priority_counts.columns = [
+            "Priority",
+            "Opportunities"
+        ]
+
+        st.dataframe(
+            priority_counts,
+            use_container_width=True,
+            hide_index=True
+        )
+    # ============================================================
+    # EXCEL REPORT
+    # ============================================================
+
+    st.divider()
+
+    st.subheader("📥 Download AI Strategy Report")
+
+    st.write(
+        "Download the AI strategy analysis as an Excel file "
+        "containing the business profile, AI opportunities, "
+        "roadmap, implementation plan, and ROI analysis."
+    )
+
+    if st.button("📊 Generate Excel Report"):
+
+        business_profile = st.session_state[
+            "business_profile"
+        ]
+
+        scored_opportunities = st.session_state[
+            "scored_opportunities"
+        ]
+
+        roi_analysis = st.session_state[
+            "roi_analysis"
+        ]
+
+        roadmap = st.session_state[
+            "roadmap"
+        ]
+
+        implementation_plan = st.session_state[
+            "implementation_plan"
+        ]
+
+        report_path = "reports/AI_Strategy_Report.xlsx"
+
+        create_excel_report(
+            business_profile,
+            scored_opportunities,
+            roadmap,
+            implementation_plan,
+            roi_analysis,
+            report_path
+        )
+
+        with open(report_path, "rb") as file:
+
+            st.download_button(
+                label="⬇️ Download Excel Report",
+                data=file,
+                file_name="AI_Strategy_Report.xlsx",
+                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+            )
+
+
+    # ============================================================
+    # PDF REPORT
+    # ============================================================
+
+    st.divider()
+
+    st.subheader("📄 Download PDF Strategy Report")
+
+    st.write(
+        "Generate a professional PDF containing the "
+        "business profile, AI opportunities, roadmap, "
+        "implementation plan, and ROI analysis."
+    )
+
+    if st.button("📄 Generate PDF Report"):
+
+        business_profile = st.session_state[
+            "business_profile"
+        ]
+
+        scored_opportunities = st.session_state[
+            "scored_opportunities"
+        ]
+
+        roadmap = st.session_state[
+            "roadmap"
+        ]
+
+        implementation_plan = st.session_state[
+            "implementation_plan"
+        ]
+
+        roi_analysis = st.session_state[
+            "roi_analysis"
+        ]
+
+        pdf_path = "reports/AI_Strategy_Report.pdf"
+
+        create_pdf_report(
+            business_profile,
+            scored_opportunities,
+            roadmap,
+            implementation_plan,
+            roi_analysis,
+            pdf_path
+        )
+
+        with open(pdf_path, "rb") as file:
+
+            st.download_button(
+                label="⬇️ Download PDF Report",
+                data=file,
+                file_name="AI_Strategy_Report.pdf",
+                mime="application/pdf"
+            )
+            
+        

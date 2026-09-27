@@ -15,3 +15,7 @@ Predictive Maintenance,Manufacturing,Machine Learning,Sensors;Machine Data;Maint
 Document Processing,Healthcare,LLM + OCR,Documents,Medium,Medium,Medium,Extract information from medical and administrative documents
 Patient Support,Healthcare,LLM + RAG,Patient Data;Documents,High,High,High,Assist with patient information and support
 Student Support,Education,LLM + RAG,Student Data;Documents,Medium,Low,Low,Provide automated student assistance
+AI Customer Service Agent,E-commerce,AI Agents,Customer Data;Support Data,High,Medium,Medium,Autonomous AI agent that handles customer queries and support workflows
+AI Sales Agent,E-commerce,AI Agents,Customer Data;Sales Data,High,High,High,AI agent that assists customers and automates sales activities
+AI Marketing Agent,E-commerce,AI Agents,Customer Data;Marketing Data,Medium,Medium,Medium,AI agent that creates campaigns and automates marketing workflows
+AI Inventory Agent,E-commerce,AI Agents,Inventory Data;Sales Data,High,High,High,AI agent that monitors inventory and coordinates replenishment workflows
