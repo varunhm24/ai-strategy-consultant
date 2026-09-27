@@ -107,6 +107,13 @@ ai-strategy-consultant/
 └── README.md
 
 
+## Live Demo
+
+Try the deployed AI Strategy Consultant:
+
+👉 [Open AI Strategy Consultant](https://ai-strategy-consultant-m4zwcxrqudzgqzbtvmzgjv.streamlit.app/)
+
+
 ##  Screenshots
 
 ###  AI Strategy Dashboard
