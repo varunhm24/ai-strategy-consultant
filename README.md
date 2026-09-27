@@ -105,3 +105,48 @@ ai-strategy-consultant/
 │
 ├── requirements.txt
 └── README.md
+
+
+##  Screenshots
+
+###  AI Strategy Dashboard
+
+![AI Strategy Dashboard](screenshots/dashboard.png)
+
+###  AI Opportunity Matrix
+
+![AI Opportunity Matrix](screenshots/AI_opportunity_matrix.png)
+
+###  AI Implementation Roadmap
+
+![AI Implementation Roadmap](screenshots/AI_implementation_roadmap.png)
+
+###  PDF and Excel Report Generation
+
+![Report Generation](screenshots/generate_download_reports.png)
+
+
+--Reports
+
+The platform can generate:
+
+AI Strategy PDF Report
+Excel Strategy Report
+
+The reports contain:
+
+Business analysis
+AI Opportunity Matrix
+AI roadmap
+Implementation plans
+Investment estimates
+Annual benefit estimates
+ROI analysis
+Strategic conclusion
+
+Author:
+
+Varun H M
+
+GitHub:
+https://github.com/varunhm24
